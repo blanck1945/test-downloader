@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 const downloadPaths = {
   windows: "Ritmo Player-1.0.0 Setup.exe",
-  linux: "ritmo-player-desktop_1.0.0_amd64.deb",
+  ubuntu: "ritmo-player-desktop_1.0.0_amd64.deb",
 };
 
 function App() {
@@ -20,17 +20,17 @@ function App() {
   const getFile = () => {
     const platform = navigator.userAgent.toLowerCase();
 
-    if (/iPhone|iPad|iPod|Android/i.test(platform))
-      return setAllowDownload(true);
+    if (platform.includes("windows")) {
+      const filePath = "/files/" + downloadPaths.windows;
+      return setDownloadPath(filePath);
+    }
 
-    if (platform.includes("macintosh")) return setAllowDownload(true);
+    if (platform.includes("ubuntu")) {
+      const filePath = "/files/" + downloadPaths.ubuntu;
+      return setDownloadPath(filePath);
+    }
 
-    console.warn("platform", platform);
-    const isWindows = platform.includes("windows");
-
-    const filePath =
-      "/files/" + (isWindows ? downloadPaths.windows : downloadPaths.linux);
-    setDownloadPath(filePath);
+    return setAllowDownload(true);
   };
 
   return (
