@@ -29,14 +29,16 @@ function App() {
         />
         <div className="w-full px-5 max-w-sm flex flex-col items-center gap-4">
           <h2 className="text-center mb-4">Ritmo Player Desktop</h2>
-          <Button
-            disabled={Boolean(!filePath)}
-            className="w-full font-bold p-2"
-          >
-            <a className="w-full" download href={filePath}>
-              Descargar Ritmo Desktop
-            </a>
-          </Button>
+          {filePath && (
+            <Button
+              disabled={Boolean(!filePath)}
+              className="w-full font-bold p-2"
+            >
+              <a className="w-full" download href={filePath}>
+                Descargar Ritmo Desktop
+              </a>
+            </Button>
+          )}
           {!filePath && (
             <p className="text-red-400 text-center">
               Descarga no disponible para tu sistema operativo
