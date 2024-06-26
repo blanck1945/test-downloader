@@ -1,0 +1,28 @@
+{
+    "short_name": "Ritmo Player",
+    "name": "Ritmo Player - Sound Branding",
+    "icons": [
+      {
+        "src": "ritmo-icon/favicon-32x32.png",
+        "sizes": "32x32",
+        "type": "image\/png",
+        "density": "0.75"
+      },
+      {
+        "src": "ritmo-icon/mstile-70x70.png",
+        "sizes": "70x70",
+        "type": "image\/png",
+        "density": "1.5"
+      },
+      {
+        "src": "ritmo-icon/mstile-144x144.png",
+        "sizes": "144x144",
+        "type": "image\/png",
+        "density": "2.0"
+      }
+    ],
+    "start_url": ".",
+    "display": "browser",
+    "theme_color": "#3D2DB7",
+    "background_color": "#ffffff"
+  }
