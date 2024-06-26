@@ -1,5 +1,4 @@
 import { Button } from "@ritmo/ui";
-import "./App.css";
 import logo from "./assets/logo-and-slogan.svg";
 import headerLogo from "./assets/logo.svg";
 
@@ -29,20 +28,20 @@ function App() {
           className="filter md:hidden absolute left-6 top-6 h-8"
         />
         <div className="w-full px-5 max-w-sm flex flex-col items-center gap-4">
-          <h2 className="text-center mb-4">Ritmo Player Downloader</h2>
-          <ul className="flex flex-col items-center">
-            <li>Descarga la aplicación</li>
-            <li>Instala la aplicación</li>
-            <li>Disfruta de la música</li>
-          </ul>
+          <h2 className="text-center mb-4">Ritmo Player Desktop</h2>
           <Button
             disabled={Boolean(!filePath)}
             className="w-full font-bold p-2"
           >
             <a className="w-full" download href={filePath}>
-              Descargar Ritmo
+              Descargar Ritmo Desktop
             </a>
           </Button>
+          {!filePath && (
+            <p className="text-red-400">
+              Descarga no disponible para tu sistema operativo
+            </p>
+          )}
         </div>
       </div>
       <div
@@ -59,3 +58,4 @@ function App() {
 }
 
 export default App;
+
