@@ -2,36 +2,24 @@ import { Button } from "@ritmo/ui";
 import "./App.css";
 import logo from "./assets/logo-and-slogan.svg";
 import headerLogo from "./assets/logo.svg";
-import { useEffect, useState } from "react";
 
 const downloadPaths = {
   windows: "Ritmo Player-1.0.0 Setup.exe",
   ubuntu: "ritmo-player-desktop_1.0.0_amd64.deb",
 };
 
+const getFilePath = () => {
+  const platform = navigator.userAgent.toLowerCase();
+
+  if (platform.includes("windows")) return "/files/" + downloadPaths.windows;
+
+  if (platform.includes("ubuntu")) return "/files/" + downloadPaths.ubuntu;
+
+  return "";
+};
+
 function App() {
-  const [downloadPath, setDownloadPath] = useState<string>("");
-  const [allowDownload, setAllowDownload] = useState<boolean>(false);
-
-  useEffect(() => {
-    getFile();
-  }, [allowDownload]);
-
-  const getFile = () => {
-    const platform = navigator.userAgent.toLowerCase();
-
-    if (platform.includes("windows")) {
-      const filePath = "/files/" + downloadPaths.windows;
-      return setDownloadPath(filePath);
-    }
-
-    if (platform.includes("ubuntu")) {
-      const filePath = "/files/" + downloadPaths.ubuntu;
-      return setDownloadPath(filePath);
-    }
-
-    return setAllowDownload(true);
-  };
+  const filePath = getFilePath();
 
   return (
     <div className="flex">
@@ -47,8 +35,11 @@ function App() {
             <li>Instala la aplicación</li>
             <li>Disfruta de la música</li>
           </ul>
-          <Button disabled={allowDownload} className="w-full font-bold p-2">
-            <a className="w-full" download href={downloadPath}>
+          <Button
+            disabled={Boolean(!filePath)}
+            className="w-full font-bold p-2"
+          >
+            <a className="w-full" download href={filePath}>
               Descargar Ritmo
             </a>
           </Button>
