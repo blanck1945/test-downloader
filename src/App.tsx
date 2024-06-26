@@ -38,7 +38,7 @@ function App() {
             </a>
           </Button>
           {!filePath && (
-            <p className="text-red-400">
+            <p className="text-red-400 text-center">
               Descarga no disponible para tu sistema operativo
             </p>
           )}
@@ -58,4 +58,3 @@ function App() {
 }
 
 export default App;
-
