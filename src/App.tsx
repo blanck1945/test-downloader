@@ -2,23 +2,32 @@ import { Button } from "@ritmo/ui";
 import logo from "./assets/logo-and-slogan.svg";
 import headerLogo from "./assets/logo.svg";
 
-const downloadPaths = {
-  windows: "Ritmo Player-1.0.0 Setup.exe",
-  ubuntu: "ritmo-player-desktop_1.0.0_amd64.deb",
-};
 
-const getFilePath = () => {
+const getPlataform = () => {
   const platform = navigator.userAgent.toLowerCase();
 
-  if (platform.includes("windows")) return "/files/" + downloadPaths.windows;
+  if (platform.includes("windows")) return ".exe";
 
-  if (platform.includes("ubuntu")) return "/files/" + downloadPaths.ubuntu;
+  if (platform.includes("ubuntu")) return ".deb";
 
   return "";
 };
 
 function App() {
-  const filePath = getFilePath();
+  const plataform = getPlataform();
+
+  const downloadFile = async () => {
+    const baseGithubUrl =
+      "https://api.github.com/repos/ritmostudio/ritmo-player-desktop-releases/releases/latest";
+
+    const response = await fetch(baseGithubUrl);
+    const data = await response.json();
+    const downloadPath = data.assets.find((asset: any) =>
+      asset.name.includes(plataform)
+    );
+
+    window.open(downloadPath.browser_download_url, "_blank");
+  };
 
   return (
     <div className="flex">
@@ -29,17 +38,16 @@ function App() {
         />
         <div className="w-full px-5 max-w-sm flex flex-col items-center gap-4">
           <h2 className="text-center mb-4">Ritmo Player Desktop</h2>
-          {filePath && (
+          {plataform && (
             <Button
-              disabled={Boolean(!filePath)}
+              disabled={Boolean(!plataform)}
               className="w-full font-bold p-2"
+              onClick={downloadFile}
             >
-              <a className="w-full" download href={filePath}>
-                Descargar Ritmo Desktop
-              </a>
+              Descargar Ritmo Desktop
             </Button>
           )}
-          {!filePath && (
+          {!plataform && (
             <p className="text-red-400 text-center">
               Descarga no disponible para tu sistema operativo
             </p>
@@ -60,3 +68,4 @@ function App() {
 }
 
 export default App;
+
